@@ -1,29 +1,17 @@
-name: Deploy to Kubernetes
+name: Hello World Workflow
 
 on:
   push:
     branches:
-      - main  # or your deployment branch
+      - main  # Runs only when you push to the 'main' branch
 
 jobs:
-  deploy:
+  say-hello:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v3
-      with:
-        version: 'latest'
-
-    - name: Decode Kubeconfig
-      run: |
-        echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > kubeconfig
-        export KUBECONFIG=$PWD/kubeconfig
-
-    - name: Apply Kubernetes Manifests
-      run: |
-        kubectl apply -f deployment.yaml
-        kubectl apply -f service.yaml
+      - name: Say Hello
+        run: echo "Hello, World! 🎉"
